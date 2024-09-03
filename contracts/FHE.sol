@@ -51,6 +51,18 @@ struct SealedArray {
   bytes[] data;
 }
 
+struct SealedBool {
+    string data;
+}
+
+struct SealedUint {
+    string data;
+}
+
+struct SealedAddress {
+    string data;
+}
+
 library Common {
     // Values used to communicate types to the runtime.
     // Must match values defined in warp-drive protobufs for everything to 
@@ -312,105 +324,121 @@ library FHE {
     /// @dev Pure in this function is marked as a hack/workaround - note that this function is NOT pure as fetches of ciphertexts require state access
     /// @param value Ciphertext to decrypt and seal
     /// @param publicKey Public Key that will receive the sealed plaintext
-    /// @return Plaintext input, sealed for the owner of `publicKey`
-    function sealoutput(ebool value, bytes32 publicKey) internal pure returns (string memory) {
+    /// @return SealedBool struct wrapping plaintext input, sealed for the owner of `publicKey`
+    function sealoutput(ebool value, bytes32 publicKey) internal pure returns (SealedBool memory) {
         if (!isInitialized(value)) {
             value = asEbool(0);
         }
         uint256 unwrapped = ebool.unwrap(value);
 
-        return Impl.sealoutput(Common.EBOOL_TFHE, unwrapped, publicKey);
+        return SealedBool({
+            data: Impl.sealoutput(Common.EBOOL_TFHE, unwrapped, publicKey)
+        });
     }
     /// @notice performs the sealoutput function on a euint8 ciphertext. This operation returns the plaintext value, sealed for the public key provided 
     /// @dev Pure in this function is marked as a hack/workaround - note that this function is NOT pure as fetches of ciphertexts require state access
     /// @param value Ciphertext to decrypt and seal
     /// @param publicKey Public Key that will receive the sealed plaintext
-    /// @return Plaintext input, sealed for the owner of `publicKey`
-    function sealoutput(euint8 value, bytes32 publicKey) internal pure returns (string memory) {
+    /// @return SealedUint struct wrapping plaintext input, sealed for the owner of `publicKey`
+    function sealoutput(euint8 value, bytes32 publicKey) internal pure returns (SealedUint memory) {
         if (!isInitialized(value)) {
             value = asEuint8(0);
         }
         uint256 unwrapped = euint8.unwrap(value);
 
-        return Impl.sealoutput(Common.EUINT8_TFHE, unwrapped, publicKey);
+        return SealedUint({
+            data: Impl.sealoutput(Common.EUINT8_TFHE, unwrapped, publicKey)
+        });
     }
     /// @notice performs the sealoutput function on a euint16 ciphertext. This operation returns the plaintext value, sealed for the public key provided 
     /// @dev Pure in this function is marked as a hack/workaround - note that this function is NOT pure as fetches of ciphertexts require state access
     /// @param value Ciphertext to decrypt and seal
     /// @param publicKey Public Key that will receive the sealed plaintext
-    /// @return Plaintext input, sealed for the owner of `publicKey`
-    function sealoutput(euint16 value, bytes32 publicKey) internal pure returns (string memory) {
+    /// @return SealedUint struct wrapping plaintext input, sealed for the owner of `publicKey`
+    function sealoutput(euint16 value, bytes32 publicKey) internal pure returns (SealedUint memory) {
         if (!isInitialized(value)) {
             value = asEuint16(0);
         }
         uint256 unwrapped = euint16.unwrap(value);
 
-        return Impl.sealoutput(Common.EUINT16_TFHE, unwrapped, publicKey);
+        return SealedUint({
+            data: Impl.sealoutput(Common.EUINT16_TFHE, unwrapped, publicKey)
+        });
     }
     /// @notice performs the sealoutput function on a euint32 ciphertext. This operation returns the plaintext value, sealed for the public key provided 
     /// @dev Pure in this function is marked as a hack/workaround - note that this function is NOT pure as fetches of ciphertexts require state access
     /// @param value Ciphertext to decrypt and seal
     /// @param publicKey Public Key that will receive the sealed plaintext
-    /// @return Plaintext input, sealed for the owner of `publicKey`
-    function sealoutput(euint32 value, bytes32 publicKey) internal pure returns (string memory) {
+    /// @return SealedUint struct wrapping plaintext input, sealed for the owner of `publicKey`
+    function sealoutput(euint32 value, bytes32 publicKey) internal pure returns (SealedUint memory) {
         if (!isInitialized(value)) {
             value = asEuint32(0);
         }
         uint256 unwrapped = euint32.unwrap(value);
 
-        return Impl.sealoutput(Common.EUINT32_TFHE, unwrapped, publicKey);
+        return SealedUint({
+            data: Impl.sealoutput(Common.EUINT32_TFHE, unwrapped, publicKey)
+        });
     }
     /// @notice performs the sealoutput function on a euint64 ciphertext. This operation returns the plaintext value, sealed for the public key provided 
     /// @dev Pure in this function is marked as a hack/workaround - note that this function is NOT pure as fetches of ciphertexts require state access
     /// @param value Ciphertext to decrypt and seal
     /// @param publicKey Public Key that will receive the sealed plaintext
-    /// @return Plaintext input, sealed for the owner of `publicKey`
-    function sealoutput(euint64 value, bytes32 publicKey) internal pure returns (string memory) {
+    /// @return SealedUint struct wrapping plaintext input, sealed for the owner of `publicKey`
+    function sealoutput(euint64 value, bytes32 publicKey) internal pure returns (SealedUint memory) {
         if (!isInitialized(value)) {
             value = asEuint64(0);
         }
         uint256 unwrapped = euint64.unwrap(value);
 
-        return Impl.sealoutput(Common.EUINT64_TFHE, unwrapped, publicKey);
+        return SealedUint({
+            data: Impl.sealoutput(Common.EUINT64_TFHE, unwrapped, publicKey)
+        });
     }
     /// @notice performs the sealoutput function on a euint128 ciphertext. This operation returns the plaintext value, sealed for the public key provided 
     /// @dev Pure in this function is marked as a hack/workaround - note that this function is NOT pure as fetches of ciphertexts require state access
     /// @param value Ciphertext to decrypt and seal
     /// @param publicKey Public Key that will receive the sealed plaintext
-    /// @return Plaintext input, sealed for the owner of `publicKey`
-    function sealoutput(euint128 value, bytes32 publicKey) internal pure returns (string memory) {
+    /// @return SealedUint struct wrapping plaintext input, sealed for the owner of `publicKey`
+    function sealoutput(euint128 value, bytes32 publicKey) internal pure returns (SealedUint memory) {
         if (!isInitialized(value)) {
             value = asEuint128(0);
         }
         uint256 unwrapped = euint128.unwrap(value);
 
-        return Impl.sealoutput(Common.EUINT128_TFHE, unwrapped, publicKey);
+        return SealedUint({
+            data: Impl.sealoutput(Common.EUINT128_TFHE, unwrapped, publicKey)
+        });
     }
     /// @notice performs the sealoutput function on a euint256 ciphertext. This operation returns the plaintext value, sealed for the public key provided 
     /// @dev Pure in this function is marked as a hack/workaround - note that this function is NOT pure as fetches of ciphertexts require state access
     /// @param value Ciphertext to decrypt and seal
     /// @param publicKey Public Key that will receive the sealed plaintext
-    /// @return Plaintext input, sealed for the owner of `publicKey`
-    function sealoutput(euint256 value, bytes32 publicKey) internal pure returns (string memory) {
+    /// @return SealedUint struct wrapping plaintext input, sealed for the owner of `publicKey`
+    function sealoutput(euint256 value, bytes32 publicKey) internal pure returns (SealedUint memory) {
         if (!isInitialized(value)) {
             value = asEuint256(0);
         }
         uint256 unwrapped = euint256.unwrap(value);
 
-        return Impl.sealoutput(Common.EUINT256_TFHE, unwrapped, publicKey);
+        return SealedUint({
+            data: Impl.sealoutput(Common.EUINT256_TFHE, unwrapped, publicKey)
+        });
     }
     /// @notice performs the sealoutput function on a eaddress ciphertext. This operation returns the plaintext value, sealed for the public key provided 
     /// @dev Pure in this function is marked as a hack/workaround - note that this function is NOT pure as fetches of ciphertexts require state access
     /// @param value Ciphertext to decrypt and seal
     /// @param publicKey Public Key that will receive the sealed plaintext
-    /// @return Plaintext input, sealed for the owner of `publicKey`
-    function sealoutput(eaddress value, bytes32 publicKey) internal pure returns (string memory) {
+    /// @return SealedAddress struct wrapping plaintext input, sealed for the owner of `publicKey`
+    function sealoutput(eaddress value, bytes32 publicKey) internal pure returns (SealedAddress memory) {
         if (!isInitialized(value)) {
             value = asEaddress(0);
         }
         uint256 unwrapped = eaddress.unwrap(value);
 
-        return Impl.sealoutput(Common.EADDRESS_TFHE, unwrapped, publicKey);
+        return SealedAddress({
+            data: Impl.sealoutput(Common.EADDRESS_TFHE, unwrapped, publicKey)
+        });
     }
     /// @notice Performs the decrypt operation on a ciphertext
     /// @dev Verifies that the input value matches a valid ciphertext. Pure in this function is marked as a hack/workaround - note that this function is NOT pure as fetches of ciphertexts require state access
@@ -3410,7 +3438,7 @@ library BindingsEbool {
     function toU256(ebool value) internal pure returns (euint256) {
         return FHE.asEuint256(value);
     }
-    function seal(ebool value, bytes32 publicKey) internal pure returns (string memory) {
+    function seal(ebool value, bytes32 publicKey) internal pure returns (SealedBool memory) {
         return FHE.sealoutput(value, publicKey);
     }
     function decrypt(ebool value) internal pure returns (bool) {
@@ -3585,7 +3613,7 @@ library BindingsEuint8 {
     function toU256(euint8 value) internal pure returns (euint256) {
         return FHE.asEuint256(value);
     }
-    function seal(euint8 value, bytes32 publicKey) internal pure returns (string memory) {
+    function seal(euint8 value, bytes32 publicKey) internal pure returns (SealedUint memory) {
         return FHE.sealoutput(value, publicKey);
     }
     function decrypt(euint8 value) internal pure returns (uint8) {
@@ -3760,7 +3788,7 @@ library BindingsEuint16 {
     function toU256(euint16 value) internal pure returns (euint256) {
         return FHE.asEuint256(value);
     }
-    function seal(euint16 value, bytes32 publicKey) internal pure returns (string memory) {
+    function seal(euint16 value, bytes32 publicKey) internal pure returns (SealedUint memory) {
         return FHE.sealoutput(value, publicKey);
     }
     function decrypt(euint16 value) internal pure returns (uint16) {
@@ -3935,7 +3963,7 @@ library BindingsEuint32 {
     function toU256(euint32 value) internal pure returns (euint256) {
         return FHE.asEuint256(value);
     }
-    function seal(euint32 value, bytes32 publicKey) internal pure returns (string memory) {
+    function seal(euint32 value, bytes32 publicKey) internal pure returns (SealedUint memory) {
         return FHE.sealoutput(value, publicKey);
     }
     function decrypt(euint32 value) internal pure returns (uint32) {
@@ -4094,7 +4122,7 @@ library BindingsEuint64 {
     function toU256(euint64 value) internal pure returns (euint256) {
         return FHE.asEuint256(value);
     }
-    function seal(euint64 value, bytes32 publicKey) internal pure returns (string memory) {
+    function seal(euint64 value, bytes32 publicKey) internal pure returns (SealedUint memory) {
         return FHE.sealoutput(value, publicKey);
     }
     function decrypt(euint64 value) internal pure returns (uint64) {
@@ -4245,7 +4273,7 @@ library BindingsEuint128 {
     function toU256(euint128 value) internal pure returns (euint256) {
         return FHE.asEuint256(value);
     }
-    function seal(euint128 value, bytes32 publicKey) internal pure returns (string memory) {
+    function seal(euint128 value, bytes32 publicKey) internal pure returns (SealedUint memory) {
         return FHE.sealoutput(value, publicKey);
     }
     function decrypt(euint128 value) internal pure returns (uint128) {
@@ -4295,7 +4323,7 @@ library BindingsEuint256 {
     function toEaddress(euint256 value) internal pure returns (eaddress) {
         return FHE.asEaddress(value);
     }
-    function seal(euint256 value, bytes32 publicKey) internal pure returns (string memory) {
+    function seal(euint256 value, bytes32 publicKey) internal pure returns (SealedUint memory) {
         return FHE.sealoutput(value, publicKey);
     }
     function decrypt(euint256 value) internal pure returns (uint256) {
@@ -4345,7 +4373,7 @@ library BindingsEaddress {
     function toU256(eaddress value) internal pure returns (euint256) {
         return FHE.asEuint256(value);
     }
-    function seal(eaddress value, bytes32 publicKey) internal pure returns (string memory) {
+    function seal(eaddress value, bytes32 publicKey) internal pure returns (SealedAddress memory) {
         return FHE.sealoutput(value, publicKey);
     }
     function decrypt(eaddress value) internal pure returns (address) {
